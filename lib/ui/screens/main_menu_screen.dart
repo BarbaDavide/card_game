@@ -6,111 +6,125 @@ import 'character_selection_screen.dart';
 import 'load_game_screen.dart';
 import 'achievement_screen.dart';
 import 'statistics_screen.dart';
+import 'settings_screen.dart';
 import '../../presentation/providers/game_state_provider.dart';
 import '../../presentation/providers/settings_provider.dart';
+import '../widgets/accessible_button.dart';
 
-class MainMenuScreen extends ConsumerWidget {
+class MainMenuScreen extends ConsumerStatefulWidget {
   const MainMenuScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MainMenuScreen> createState() => _MainMenuScreenState();
+}
+
+class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
+
+  @override
+  Widget build(BuildContext context) {
     final gameStatus = ref.watch(gameStatusProvider);
     final hasActiveGame = gameStatus == GameStatus.playing || gameStatus == GameStatus.paused;
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A12),
       body: SafeArea(
-        child: Column(
-          children: [
-            // Header
-            Container(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  const Text(
-                    'ROGUE CARD',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Political Satire Deckbuilder',
-                    style: TextStyle(
-                      color: Colors.grey[500],
-                      fontSize: 14,
-                      letterSpacing: 1,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            
-            // Continue button (se c'è una partita attiva)
-            if (hasActiveGame) ...[
-              _buildMenuButton(
-                context,
-                'CONTINUE',
-                Colors.green,
-                () => _resumeGame(context, ref),
-              ),
-              const SizedBox(height: 16),
-            ],
-            
-            // Menu buttons
-            Expanded(
-              child: Center(
+        child: Semantics(
+          explicitChildNodes: true,
+          child: Column(
+            children: [
+              // Header
+              Container(
+                padding: const EdgeInsets.all(24),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildMenuButton(
-                      context,
-                      'NEW RUN',
-                      Colors.green,
-                      () => _navigateToCharacterSelection(context),
+                    Semantics(
+                      heading: true,
+                      label: 'Rogue Card Game Title',
+                      child: const Text(
+                        'ROGUE CARD',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 16),
-                    _buildMenuButton(
-                      context,
-                      'LOAD GAME',
-                      Colors.blue,
-                      () => _navigateToLoadGame(context),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildMenuButton(
-                      context,
-                      'COLLECTION',
-                      Colors.purple,
-                      () => _navigateToCollection(context),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildMenuButton(
-                      context,
-                      'ACHIEVEMENTS',
-                      const Color(0xFFFFD700),
-                      () => _navigateToAchievements(context),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildMenuButton(
-                      context,
-                      'STATISTICS',
-                      const Color(0xFF00D9FF),
-                      () => _navigateToStatistics(context),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildMenuButton(
-                      context,
-                      'SETTINGS',
-                      Colors.grey,
-                      () => _showSettings(context, ref),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Political Satire Deckbuilder',
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                        fontSize: 14,
+                        letterSpacing: 1,
+                      ),
                     ),
                   ],
                 ),
               ),
-            ),
+              
+              // Continue button (se c'è una partita attiva)
+              if (hasActiveGame) ...[
+                _buildAccessibleMenuButton(
+                  'CONTINUE',
+                  Colors.green,
+                  () => _resumeGame(context, ref),
+                  'Resume current game',
+                ),
+                const SizedBox(height: 16),
+              ],
+              
+              // Menu buttons
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildAccessibleMenuButton(
+                        'NEW RUN',
+                        Colors.green,
+                        () => _navigateToCharacterSelection(context),
+                        'Start a new game run',
+                      ),
+                      const SizedBox(height: 16),
+                      _buildAccessibleMenuButton(
+                        'LOAD GAME',
+                        Colors.blue,
+                        () => _navigateToLoadGame(context),
+                        'Load a saved game',
+                      ),
+                      const SizedBox(height: 16),
+                      _buildAccessibleMenuButton(
+                        'COLLECTION',
+                        Colors.purple,
+                        () => _navigateToCollection(context),
+                        'View your card collection',
+                      ),
+                      const SizedBox(height: 16),
+                      _buildAccessibleMenuButton(
+                        'ACHIEVEMENTS',
+                        const Color(0xFFFFD700),
+                        () => _navigateToAchievements(context),
+                        'View unlocked achievements',
+                      ),
+                      const SizedBox(height: 16),
+                      _buildAccessibleMenuButton(
+                        'STATISTICS',
+                        const Color(0xFF00D9FF),
+                        () => _navigateToStatistics(context),
+                        'View game statistics',
+                      ),
+                      const SizedBox(height: 16),
+                      _buildAccessibleMenuButton(
+                        'SETTINGS',
+                        Colors.grey,
+                        () => _navigateToSettings(context),
+                        'Open game settings',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             
             // Footer
             Container(
@@ -121,13 +135,16 @@ class MainMenuScreen extends ConsumerWidget {
                   top: BorderSide(color: Colors.grey.withOpacity(0.1), width: 1),
                 ),
               ),
-              child: const Text(
-                'v1.0.0 • Satirical Political Roguelike',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 12,
+              child: Semantics(
+                label: 'Version 1.0.0 Satirical Political Roguelike',
+                child: const Text(
+                  'v1.0.0 • Satirical Political Roguelike',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
             ),
           ],
@@ -136,52 +153,45 @@ class MainMenuScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildMenuButton(
-    BuildContext context,
+  Widget _buildAccessibleMenuButton(
     String label,
     Color color,
     VoidCallback onPressed,
+    String semanticLabel,
   ) {
-    return SizedBox(
-      width: 280,
-      height: 60,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1A1A2A),
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-            side: BorderSide(color: color.withOpacity(0.5), width: 1.5),
+    return AccessibleButton(
+      onTap: onPressed,
+      label: label,
+      semanticLabel: semanticLabel,
+      backgroundColor: const Color(0xFF1A1A2A),
+      minWidth: 280,
+      minHeight: 60,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              _getIconForLabel(label),
+              color: color,
+              size: 20,
+            ),
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(
-                _getIconForLabel(label),
-                color: color,
-                size: 20,
-              ),
+          const SizedBox(width: 16),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1,
             ),
-            const SizedBox(width: 16),
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -232,54 +242,31 @@ class MainMenuScreen extends ConsumerWidget {
     );
   }
 
-  void _showSettings(BuildContext context, WidgetRef ref) {
-    final settings = ref.read(settingsProvider);
-    
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF1E1E2E),
-        title: const Text('Settings'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildSettingRow(
-              'Music Volume', 
-              '${(settings['musicVolume'] * 100).toInt()}%',
-              Icons.music_note,
-            ),
-            _buildSettingRow(
-              'SFX Volume', 
-              '${(settings['sfxVolume'] * 100).toInt()}%',
-              Icons.volume_up,
-            ),
-            _buildSettingRow(
-              'Language', 
-              settings['language'].toString().toUpperCase(),
-              Icons.language,
-            ),
-            _buildSettingRow(
-              'Tutorial', 
-              settings['showTutorial'] ? 'ON' : 'OFF',
-              Icons.school,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('CLOSE'),
-          ),
-          TextButton(
-            onPressed: () {
-              // Qui si aprirà la schermata settings completa
-              Navigator.pop(context);
-            },
-            child: const Text('OPEN FULL SETTINGS'),
-          ),
-        ],
-      ),
+  void _navigateToSettings(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SettingsScreen()),
     );
+  }
+
+  IconData _getIconForLabel(String label) {
+    switch (label) {
+      case 'NEW RUN': 
+      case 'CONTINUE':
+        return Icons.play_arrow;
+      case 'LOAD GAME': 
+        return Icons.folder_open;
+      case 'COLLECTION': 
+        return Icons.collections_bookmark;
+      case 'ACHIEVEMENTS':
+        return Icons.emoji_events;
+      case 'STATISTICS':
+        return Icons.bar_chart;
+      case 'SETTINGS': 
+        return Icons.settings;
+      default: 
+        return Icons.help;
+    }
   }
 
   Widget _buildSettingRow(String label, String value, IconData icon) {
@@ -313,65 +300,11 @@ class MainMenuScreen extends ConsumerWidget {
       ),
     );
   }
-}
 
-// Screen collezione come widget separato
-class _CollectionScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0A0A12),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF121225),
-        title: const Text('📚 Collection'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.purple.withOpacity(0.2),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(Icons.collections_bookmark, size: 50, color: Colors.purple),
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              'Card Collection',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'Your political cards will appear here',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1A1A2A),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              ),
-              child: const Text('BACK TO MENU'),
-            ),
-          ],
-        ),
-      ),
+  void _navigateToCollection(BuildContext context) {
+    // Placeholder - da implementare con schermata collezione reale
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Card Collection - Coming Soon')),
     );
   }
 }

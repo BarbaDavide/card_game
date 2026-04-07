@@ -1,13 +1,10 @@
 ```
 # Dependencies
-.pub/
-.build/
 .dart_tool/
 .packages
 
 # Build artifacts
 build/
-dist/
 
 # Logs
 *.log
@@ -18,10 +15,11 @@ dist/
 *.env.*
 
 # IDE
-.vscode/
 .idea/
-*.swp
-*.swo
+.vscode/
+*.iml
+*.ipr
+*.iws
 
 # OS
 .DS_Store
@@ -31,6 +29,11 @@ Thumbs.db
 coverage/
 htmlcov/
 .coverage
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
 
 # Compressed files
 *.zip
@@ -51,4 +54,8 @@ htmlcov/
 *.Z
 *.lz
 *.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```

@@ -1,0 +1,90 @@
+# METADATI PER APP STORE - ROGUE CARD GAME
+
+## TITOLO (30 caratteri max)
+Rogue Card Game: Deck Builder
+
+## SOTTOTITOLO (iOS - 30 caratteri max)
+Strategia e carte in un'avventura epica
+
+## BREVE DESCRIZIONE (Android - 80 caratteri max)
+Combatti con carte, esplora dungeon e diventa il campione nel rogue-like definitivo!
+
+## DESCRIZIONE COMPLETA (4000 caratteri max)
+
+**Rogue Card Game** è un'avvincente avventura rogue-like dove strategia e fortuna si incontrano in epici combattimenti a carte.
+
+**CARATTERISTICHE PRINCIPALI:**
+
+🎴 **COMBATTIMENTO STRATEGICO**
+Ogni battaglia è unica. Costruisci il tuo mazzo, pianifica le mosse e sconfiggi nemici sempre più potenti con combinazioni di carte letali.
+
+⚔️ **AVVENTURA SENZA FINE**
+Esplora mappe generate proceduralmente. Ogni run è diversa: percorsi casuali, eventi imprevedibili e boss epici ti aspettano.
+
+🏆 **OBBIETTIVI E CLASSIFICHE**
+Sblocca achievement, migliora le tue statistiche e diventa il miglior giocatore. Quanti nemici riuscirai a sconfiggere?
+
+💾 **SALVA E RIPRENDI**
+Il gioco salva automaticamente i tuoi progressi. Riprendi la partita quando vuoi, anche offline.
+
+🎨 **GRAFICA ACCURATA**
+Design curato nei minimi dettagli con animazioni fluide e interfaccia intuitiva.
+
+🌍 **MULTILINGUA**
+Disponibile in Italiano e Inglese.
+
+**COME SI GIOCA:**
+1. Scegli il tuo personaggio iniziale
+2. Esplora la mappa e affronta eventi
+3. Combatti usando le carte del tuo mazzo
+4. Raccogli nuove carte e potenziamenti
+5. Sconfiggi il boss finale per vincere!
+
+**PERFETTO PER:**
+- Amanti dei giochi di carte strategici
+- Fan dei rogue-like e roguelite
+- Chi cerca sfide sempre nuove
+- Giocatori che amano collezionare e migliorare
+
+**GIOCO COMPLETAMENTE OFFLINE**
+Nessuna connessione richiesta. Gioca quando e dove vuoi!
+
+---
+
+Scarica ora e inizia la tua avventura!
+
+## KEYWORDS (iOS - 100 caratteri max, separate da virgola)
+carte,strategia,rogue,deck builder,dungeon,rpg,tattico,offline,single player,avventura,boss,combattimento,mazzo,collezionabile
+
+## CATEGORIE
+- Primaria: Games
+- Secondaria: Strategy / Card
+
+## RATING ETÀ
+- iOS: 9+ (Simulated Gambling, Cartoon Violence)
+- Android: Everyone 10+ (Fantasy Violence)
+
+## URL PRIVACY POLICY
+[INSERIRE URL DOPO DEPLOY]
+
+## URL SUPPORTO
+[INSERIRE EMAIL O SITO WEB]
+
+## SCREENSHOT RICHIESTI
+
+### iOS
+- iPhone 6.5" (1284x2778) - 5 screenshot
+- iPhone 5.5" (1242x2208) - 5 screenshot
+- iPad Pro 12.9" (2048x2732) - opzionale
+
+### Android
+- Telefono (16:9 o 9:16) - minimo 2
+- Tablet 7" - opzionale
+- Tablet 10" - opzionale
+
+## ICONA
+- iOS: 1024x1024 px (senza trasparenza)
+- Android: 512x512 px (con canale alpha)
+
+## FEATURE GRAPHIC (Android)
+- 1024x500 px
