@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'run_map_screen.dart'; // ✅ IMPORT CORRETTO (stessa cartella)
 
 class CharacterSelection extends StatelessWidget {
-  const CharacterSelection({Key? key}) : super(key: key);
+  const CharacterSelection({super.key});
 
   @override
   Widget build(BuildContext context) {

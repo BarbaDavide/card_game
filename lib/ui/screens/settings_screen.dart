@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../ui/theme/app_theme.dart';
 import '../../services/sound_manager.dart';
-import '../providers/settings_provider.dart';
+import '../../presentation/providers/settings_provider.dart';
 
 /// Settings Screen - Gestione impostazioni gioco
 class SettingsScreen extends ConsumerStatefulWidget {

@@ -1,8 +1,8 @@
 // lib/ui/screen/run_map_screen.dart
 
 import 'package:flutter/material.dart';
-import 'merchant_screen.dart'; // ← AGGIUNGI QUESTA RIGA
-import 'battle_screen.dart';   // ← E QUESTA SE NON C'È GIÀ
+import 'merchant_screen.dart';
+import 'battle_screen.dart';
 
 class RunMapScreen extends StatefulWidget {
   final String fighterName;

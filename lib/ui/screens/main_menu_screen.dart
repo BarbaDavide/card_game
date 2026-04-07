@@ -2,11 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'character_selection_screen.dart';
+import 'character_selection.dart';
 import 'load_game_screen.dart';
 import 'achievement_screen.dart';
 import 'statistics_screen.dart';
 import 'settings_screen.dart';
+import 'collection_screen.dart';
 import '../../presentation/providers/game_state_provider.dart';
 import '../../presentation/providers/settings_provider.dart';
 import '../widgets/accessible_button.dart';
@@ -205,6 +206,10 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
         return Icons.folder_open;
       case 'COLLECTION': 
         return Icons.collections_bookmark;
+      case 'ACHIEVEMENTS':
+        return Icons.emoji_events;
+      case 'STATISTICS':
+        return Icons.bar_chart;
       case 'SETTINGS': 
         return Icons.settings;
       default: 
@@ -214,20 +219,16 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
 
   void _resumeGame(BuildContext context, WidgetRef ref) {
     ref.read(gameStateProvider.notifier).resume();
-    // Naviga alla schermata di gioco
     Navigator.pop(context);
   }
 
   void _navigateToLoadGame(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => const LoadGameScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => const LoadGameScreen()),
     );
   }
 
-  
   void _navigateToAchievements(BuildContext context) {
     Navigator.push(
       context,
@@ -249,62 +250,17 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
     );
   }
 
-  IconData _getIconForLabel(String label) {
-    switch (label) {
-      case 'NEW RUN': 
-      case 'CONTINUE':
-        return Icons.play_arrow;
-      case 'LOAD GAME': 
-        return Icons.folder_open;
-      case 'COLLECTION': 
-        return Icons.collections_bookmark;
-      case 'ACHIEVEMENTS':
-        return Icons.emoji_events;
-      case 'STATISTICS':
-        return Icons.bar_chart;
-      case 'SETTINGS': 
-        return Icons.settings;
-      default: 
-        return Icons.help;
-    }
-  }
-
-  Widget _buildSettingRow(String label, String value, IconData icon) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.grey[400], size: 20),
-          const SizedBox(width: 12),
-          Text(
-            label,
-            style: const TextStyle(color: Colors.white, fontSize: 16),
-          ),
-          const Spacer(),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: const Color(0xFF0A0A12),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(
-              value,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-      ),
+  void _navigateToCharacterSelection(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CharacterSelection()),
     );
   }
 
   void _navigateToCollection(BuildContext context) {
-    // Placeholder - da implementare con schermata collezione reale
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Card Collection - Coming Soon')),
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CollectionScreen()),
     );
   }
 }

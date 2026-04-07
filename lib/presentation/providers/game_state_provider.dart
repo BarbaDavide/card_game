@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../data/local/save_data.dart';
-import '../data/local/local_storage_service.dart';
-import '../data/game_state.dart';
+import '../../data/local/save_data.dart';
+import '../../data/local/local_storage_service.dart';
+import '../../data/game_state.dart';
 
 enum GameStatus { menu, playing, paused, gameOver, victory }
 
