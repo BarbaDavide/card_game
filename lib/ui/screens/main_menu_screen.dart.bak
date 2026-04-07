@@ -1,0 +1,940 @@
+// lib/ui/screens/main_menu_screen.dart
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'character_selection_screen.dart';
+import 'load_game_screen.dart';
+import '../../presentation/providers/game_state_provider.dart';
+import '../../presentation/providers/settings_provider.dart';
+
+class MainMenuScreen extends ConsumerWidget {
+  const MainMenuScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final gameStatus = ref.watch(gameStatusProvider);
+    final hasActiveGame = gameStatus == GameStatus.playing || gameStatus == GameStatus.paused;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFF0A0A12),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Header
+            Container(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                children: [
+                  const Text(
+                    'ROGUE CARD',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Political Satire Deckbuilder',
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                      fontSize: 14,
+                      letterSpacing: 1,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            
+            // Continue button (se c'è una partita attiva)
+            if (hasActiveGame) ...[
+              _buildMenuButton(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                context,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                'CONTINUE',
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                Colors.green,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                () => _resumeGame(context, ref),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              const SizedBox(height: 16),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+            ],
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+            
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+            // Menu buttons
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+            Expanded(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              child: Center(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                child: Column(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                  children: [
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                    _buildMenuButton(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      context,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      'NEW RUN',
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      Colors.green,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      () => _navigateToCharacterSelection(context),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                    ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                    _buildMenuButton(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      context,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      'LOAD GAME',
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      Colors.blue,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      () => _navigateToLoadGame(context),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                    ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                    _buildMenuButton(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      context,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      'COLLECTION',
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      Colors.purple,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      () => _navigateToCollection(context),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                    ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                    _buildMenuButton(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      context,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      'SETTINGS',
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                      Colors.grey,
+                      () => _showSettings(context, ref),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            
+            // Footer
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF12121A),
+                border: Border(
+                  top: BorderSide(color: Colors.grey.withOpacity(0.1), width: 1),
+                ),
+              ),
+              child: const Text(
+                'v1.0.0 • Satirical Political Roguelike',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMenuButton(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+    BuildContext context,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+    String label,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+    Color color,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+    VoidCallback onPressed,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+  ) {
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+    return SizedBox(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+      width: 280,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+      height: 60,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+      child: ElevatedButton(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+        onPressed: onPressed,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+        style: ElevatedButton.styleFrom(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+          backgroundColor: const Color(0xFF1A1A2A),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+          foregroundColor: Colors.white,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+          shape: RoundedRectangleBorder(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+            borderRadius: BorderRadius.circular(12),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+            side: BorderSide(color: color.withOpacity(0.5), width: 1.5),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+          ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+        ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+        child: Row(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+          mainAxisAlignment: MainAxisAlignment.center,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+          children: [
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+            Container(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              width: 36,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              height: 36,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              decoration: BoxDecoration(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                color: color.withOpacity(0.15),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                borderRadius: BorderRadius.circular(8),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              child: Icon(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                _getIconForLabel(label),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                color: color,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                size: 20,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+            ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+            const SizedBox(width: 16),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+            Text(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              label,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              style: const TextStyle(
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                fontSize: 18,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                fontWeight: FontWeight.bold,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                letterSpacing: 1,
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+              ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+            ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+          ],
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+        ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+      ),
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+    );
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+  }
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+  IconData _getIconForLabel(String label) {
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+    switch (label) {
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+      case 'NEW RUN': 
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+      case 'CONTINUE':
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+        return Icons.play_arrow;
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+      case 'LOAD GAME': 
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+        return Icons.folder_open;
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+      case 'COLLECTION': 
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+        return Icons.collections_bookmark;
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+      case 'SETTINGS': 
+                    _buildMenuButton(
+                      context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+        return Icons.settings;
+      default: 
+        return Icons.help;
+    }
+  }
+
+  void _resumeGame(BuildContext context, WidgetRef ref) {
+    ref.read(gameStateProvider.notifier).resume();
+    // Naviga alla schermata di gioco
+    Navigator.pop(context);
+  }
+
+  void _navigateToLoadGame(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoadGameScreen(),
+      ),
+    );
+  }
+
+  void _showSettings(BuildContext context, WidgetRef ref) {
+    final settings = ref.read(settingsProvider);
+    
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: const Color(0xFF1E1E2E),
+        title: const Text('Settings'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildSettingRow(
+              'Music Volume', 
+              '${(settings['musicVolume'] * 100).toInt()}%',
+              Icons.music_note,
+            ),
+            _buildSettingRow(
+              'SFX Volume', 
+              '${(settings['sfxVolume'] * 100).toInt()}%',
+              Icons.volume_up,
+            ),
+            _buildSettingRow(
+              'Language', 
+              settings['language'].toString().toUpperCase(),
+              Icons.language,
+            ),
+            _buildSettingRow(
+              'Tutorial', 
+              settings['showTutorial'] ? 'ON' : 'OFF',
+              Icons.school,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('CLOSE'),
+          ),
+          TextButton(
+            onPressed: () {
+              // Qui si aprirà la schermata settings completa
+              Navigator.pop(context);
+            },
+            child: const Text('OPEN FULL SETTINGS'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSettingRow(String label, String value, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.grey[400], size: 20),
+          const SizedBox(width: 12),
+          Text(
+            label,
+            style: const TextStyle(color: Colors.white, fontSize: 16),
+          ),
+          const Spacer(),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: const Color(0xFF0A0A12),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Text(
+              value,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Screen collezione come widget separato
+class _CollectionScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF0A0A12),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF121225),
+        title: const Text('📚 Collection'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                color: Colors.purple.withOpacity(0.2),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.collections_bookmark, size: 50, color: Colors.purple),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Card Collection',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Your political cards will appear here',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF1A1A2A),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              ),
+              child: const Text('BACK TO MENU'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

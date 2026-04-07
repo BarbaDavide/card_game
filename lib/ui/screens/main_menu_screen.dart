@@ -1,13 +1,22 @@
 // lib/ui/screens/main_menu_screen.dart
 
 import 'package:flutter/material.dart';
-import 'character_selection_screen.dart'; // ✅ IMPORT CORRETTO (stessa cartella)
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'character_selection_screen.dart';
+import 'load_game_screen.dart';
+import 'achievement_screen.dart';
+import 'statistics_screen.dart';
+import '../../presentation/providers/game_state_provider.dart';
+import '../../presentation/providers/settings_provider.dart';
 
-class MainMenuScreen extends StatelessWidget {
+class MainMenuScreen extends ConsumerWidget {
   const MainMenuScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final gameStatus = ref.watch(gameStatusProvider);
+    final hasActiveGame = gameStatus == GameStatus.playing || gameStatus == GameStatus.paused;
+
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A12),
       body: SafeArea(
@@ -40,6 +49,17 @@ class MainMenuScreen extends StatelessWidget {
               ),
             ),
             
+            // Continue button (se c'è una partita attiva)
+            if (hasActiveGame) ...[
+              _buildMenuButton(
+                context,
+                'CONTINUE',
+                Colors.green,
+                () => _resumeGame(context, ref),
+              ),
+              const SizedBox(height: 16),
+            ],
+            
             // Menu buttons
             Expanded(
               child: Center(
@@ -50,7 +70,14 @@ class MainMenuScreen extends StatelessWidget {
                       context,
                       'NEW RUN',
                       Colors.green,
-                      () => _navigateToCharacterSelection(context), // ✅ CORRETTO
+                      () => _navigateToCharacterSelection(context),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildMenuButton(
+                      context,
+                      'LOAD GAME',
+                      Colors.blue,
+                      () => _navigateToLoadGame(context),
                     ),
                     const SizedBox(height: 16),
                     _buildMenuButton(
@@ -62,9 +89,23 @@ class MainMenuScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     _buildMenuButton(
                       context,
+                      'ACHIEVEMENTS',
+                      const Color(0xFFFFD700),
+                      () => _navigateToAchievements(context),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildMenuButton(
+                      context,
+                      'STATISTICS',
+                      const Color(0xFF00D9FF),
+                      () => _navigateToStatistics(context),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildMenuButton(
+                      context,
                       'SETTINGS',
                       Colors.grey,
-                      () => _showSettings(context),
+                      () => _showSettings(context, ref),
                     ),
                   ],
                 ),
@@ -147,45 +188,126 @@ class MainMenuScreen extends StatelessWidget {
 
   IconData _getIconForLabel(String label) {
     switch (label) {
-      case 'NEW RUN': return Icons.play_arrow;
-      case 'COLLECTION': return Icons.collections_bookmark;
-      case 'SETTINGS': return Icons.settings;
-      default: return Icons.help;
+      case 'NEW RUN': 
+      case 'CONTINUE':
+        return Icons.play_arrow;
+      case 'LOAD GAME': 
+        return Icons.folder_open;
+      case 'COLLECTION': 
+        return Icons.collections_bookmark;
+      case 'SETTINGS': 
+        return Icons.settings;
+      default: 
+        return Icons.help;
     }
   }
 
-  // ✅ METODO CORRETTO PER APRIRE LA SELEZIONE PERSONAGGIO
- // TROVA IL METODO _navigateToMap e SOSTITUISCILO CON:
+  void _resumeGame(BuildContext context, WidgetRef ref) {
+    ref.read(gameStateProvider.notifier).resume();
+    // Naviga alla schermata di gioco
+    Navigator.pop(context);
+  }
 
-void _navigateToCharacterSelection(BuildContext context) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => const CharacterSelection(), // ✅ Nome classe esatto SENZA "Screen"
-    ),
-  );
-}
-
-  void _navigateToCollection(BuildContext context) {
+  void _navigateToLoadGame(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => _CollectionScreen(),
+        builder: (context) => const LoadGameScreen(),
       ),
     );
   }
 
-  void _showSettings(BuildContext context) {
+  
+  void _navigateToAchievements(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AchievementScreen()),
+    );
+  }
+
+  void _navigateToStatistics(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const StatisticsScreen()),
+    );
+  }
+
+  void _showSettings(BuildContext context, WidgetRef ref) {
+    final settings = ref.read(settingsProvider);
+    
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF1E1E2E),
         title: const Text('Settings'),
-        content: const Text('Settings will be available soon.'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildSettingRow(
+              'Music Volume', 
+              '${(settings['musicVolume'] * 100).toInt()}%',
+              Icons.music_note,
+            ),
+            _buildSettingRow(
+              'SFX Volume', 
+              '${(settings['sfxVolume'] * 100).toInt()}%',
+              Icons.volume_up,
+            ),
+            _buildSettingRow(
+              'Language', 
+              settings['language'].toString().toUpperCase(),
+              Icons.language,
+            ),
+            _buildSettingRow(
+              'Tutorial', 
+              settings['showTutorial'] ? 'ON' : 'OFF',
+              Icons.school,
+            ),
+          ],
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: const Text('CLOSE'),
+          ),
+          TextButton(
+            onPressed: () {
+              // Qui si aprirà la schermata settings completa
+              Navigator.pop(context);
+            },
+            child: const Text('OPEN FULL SETTINGS'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSettingRow(String label, String value, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.grey[400], size: 20),
+          const SizedBox(width: 12),
+          Text(
+            label,
+            style: const TextStyle(color: Colors.white, fontSize: 16),
+          ),
+          const Spacer(),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: const Color(0xFF0A0A12),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Text(
+              value,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ],
       ),
